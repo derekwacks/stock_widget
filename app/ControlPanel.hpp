@@ -12,9 +12,12 @@ namespace trader{
         ~ControlPanel();
     private:
         void onGetDataButtonClick(wxCommandEvent& event);
+        std::string getTicker();
         wxButton* getButton_; 
         wxStaticBox* paramsBox_; 
         wxTextCtrl* symbol_; 
-        wxStaticText* price_; 
+        wxStaticText* price_;
+        wxStaticText* name_;  
+        wxStaticText* exchange_; 
     };
 }

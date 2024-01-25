@@ -5,11 +5,9 @@ namespace trader{
     wxIMPLEMENT_APP_NO_MAIN(App);
 
     App::App() : wxApp{}{
-        //trader_ = new Trader();
     }
 
     App::~App(){
-        // delete trader_; 
     }
 
     bool App::OnInit(){

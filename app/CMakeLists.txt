@@ -7,6 +7,8 @@ add_executable(trader
     DataGetter.cpp
     ControlPanel.hpp
     ControlPanel.cpp
+    DataFound.hpp
+    DataFound.cpp
 )
 
 add_executable(tester

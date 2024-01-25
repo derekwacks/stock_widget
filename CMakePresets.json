@@ -1,0 +1,117 @@
+{
+    "version": 2,
+    "configurePresets": [
+        {
+            "name": "vs2022_x64",
+            "displayName": "Visual Studio 17 2022",
+            "description": "Using compilers for Visual Studio 17 2022 (x64 architecture)",
+            "generator": "Visual Studio 17 2022",
+            "toolset": "host=x64",
+            "architecture": "x64",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            },
+            "environment": {
+                "CMAKE_BUILD_PARALLEL_LEVEL": "4"
+            }
+        },
+        {
+            "name": "macOS",
+            "displayName": "MacOs Xcode Clang",
+            "description": "Using compilers: C = /usr/bin/clang, CXX = /usr/bin/clang++",
+            "generator": "Xcode",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/clang",
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
+            }
+        },
+        {
+            "name": "linux_gcc_ninja",
+            "displayName": "GNU/Linux GCC+Ninja",
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+            }
+        },
+        {
+            "name": "linux_gcc_release",
+            "displayName": "GNU/Linux GCC - Release" ,
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/release",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux_gcc_debug",
+            "displayName": "GNU/Linux GCC - Debug" ,
+            "description": "Using compilers: C = /usr/bin/gcc, CXX = /usr/bin/g++",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/debug",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "vs2022_x64-release",
+            "displayName": "Visual Studio 17 2022 - Release",
+            "configurePreset": "vs2022_x64",
+            "configuration": "Release"
+        },
+        {
+            "name": "vs2022_x64-debug",
+            "displayName": "Visual Studio 17 2022 - Debug",
+            "configurePreset": "vs2022_x64",
+            "configuration": "Debug"
+        },
+        {
+            "name": "macOS-release",
+            "displayName": "MacOs Xcode Clang - Release",
+            "configurePreset": "macOS",
+            "configuration": "Release"
+        },
+        {
+            "name": "macOS-debug",
+            "displayName": "MacOs Xcode Clang - Debug",
+            "configurePreset": "macOS",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-ninja-release",
+            "displayName": "GNU/Linux GCC+Ninja - Release",
+            "configurePreset": "linux_gcc_ninja",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-nina-debug",
+            "displayName": "GNU/Linux GCC+Ninja - Debug",
+            "configurePreset": "linux_gcc_ninja",
+            "configuration": "Debug"
+        },
+        {
+            "name": "linux-gcc-release",
+            "displayName": "GNU/Linux GCC - Release",
+            "configurePreset": "linux_gcc_release",
+            "configuration": "Release"
+        },
+        {
+            "name": "linux-gcc-debug",
+            "displayName": "GNU/Linux GCC - Debug",
+            "configurePreset": "linux_gcc_debug",
+            "configuration": "Debug"
+        }
+    ]
+}

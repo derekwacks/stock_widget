@@ -4,10 +4,16 @@ using json = nlohmann::json;
 
 namespace trader{
     class DataGetter{
+
+        friend class tester;
+
     public:
         DataGetter();
         ~DataGetter();
         double getPrice();
-        json queryYahoo();
+        double spoofGetPrice();
+    private:
+        json* queryYahoo();
+        double parseData(json* data);
     };
 }

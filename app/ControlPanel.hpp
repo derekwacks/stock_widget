@@ -13,5 +13,8 @@ namespace trader{
     private:
         void onGetDataButtonClick(wxCommandEvent& event);
         wxButton* getButton_; 
+        wxStaticBox* paramsBox_; 
+        wxTextCtrl* symbol_; 
+        wxStaticText* price_; 
     };
 }

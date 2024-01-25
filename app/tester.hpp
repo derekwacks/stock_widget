@@ -6,5 +6,6 @@ namespace trader{
     public:
         bool testGetPrice();
         bool testQueryYahoo();
+        bool testSpoofGetPrice();
     };
 }

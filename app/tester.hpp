@@ -4,6 +4,7 @@
 namespace trader{
     class tester{
     public:
-        bool testDataGetter();
+        bool testGetPrice();
+        bool testQueryYahoo();
     };
 }

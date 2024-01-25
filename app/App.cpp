@@ -2,6 +2,8 @@
 #include <iostream>
 
 namespace trader{
+    wxIMPLEMENT_APP_NO_MAIN(App);
+
     App::App() : wxApp{}{
         //trader_ = new Trader();
     }
@@ -24,17 +26,9 @@ namespace trader{
         return *datagetter_; 
     }
 
-    void App::test(){
-        std::cout << "Launching app\n";
-    }
 }
 
 
 int main(int argc, char* argv[]){
-    trader::App a; 
-    a.test();
-    trader::DataGetter dg; 
-    double price = dg.getPrice();
-    std::cout << "Price = " << price << std::endl; 
     return wxEntry(argc, argv);
 }

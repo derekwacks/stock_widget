@@ -3,7 +3,6 @@
 #include <cpr/cpr.h>
 #include <string>
 
-
 namespace trader{
     DataGetter::DataGetter(){
     }
@@ -17,14 +16,18 @@ namespace trader{
         return price; 
     }
 
-    int DataGetter::getData(){
-        std::string url = "https://query1.finance.yahoo.com/v7/finance/options/KC=F";
-        cpr::Response r = cpr::Get(cpr::Url{url},
+    json DataGetter::queryYahoo(){
+        std::string ticker = "KC=F";
+        std::string api_url = "https://query1.finance.yahoo.com/v7/finance/options/";
+        std::string full_url = api_url + ticker; 
+        cpr::Response r = cpr::Get(cpr::Url{full_url},
         cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC});
-        std::cout << r.status_code << std::endl;
-        std::cout << r.header["content-type"] << std::endl;
-        std::cout << r.text << std::endl;
-        return 0;
-    } 
+        json response = {
+            {"status", r.status_code},
+            {"header", r.header["content-type"]},
+            {"body", json::parse(r.text)}
+        };
+        return response;
+    }
 
 }

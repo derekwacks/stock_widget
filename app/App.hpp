@@ -14,7 +14,6 @@ namespace trader{
         AppWindow& window();
         DataGetter& getter();
         virtual bool OnInit() override;
-        void test();
     };
     
     wxDECLARE_APP(App);

@@ -1,4 +1,6 @@
 #pragma once
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
 
 namespace trader{
     class DataGetter{
@@ -6,6 +8,6 @@ namespace trader{
         DataGetter();
         ~DataGetter();
         double getPrice();
-        int getData();
+        json queryYahoo();
     };
 }

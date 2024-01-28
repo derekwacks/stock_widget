@@ -7,23 +7,23 @@ namespace trader{
     DataFound::~DataFound(){
     }
 
-    double DataFound::price(){
+    double DataFound::price() const{
         return price_; 
     }
 
-    std::string DataFound::name(){
+    std::string DataFound::name() const{
         return name_;
     }
 
-    std::string DataFound::exchange(){
+    std::string DataFound::exchange() const{
         return exchange_; 
     }
 
-    bool DataFound::datafoundGetError(){
+    bool DataFound::datafoundGetError() const{
         return error_; 
     }
 
-    void DataFound::datafoundSetError(bool err){
+    void DataFound::datafoundSetError(const bool err){
         error_ = err; 
     }
 }

@@ -11,10 +11,10 @@ namespace trader{
     public:
         DataGetter();
         ~DataGetter();
-        DataFound* getData(std::string ticker);
-        double spoofGetPrice();
+        DataFound* getData(const std::string& ticker) const;
+        double spoofGetPrice() const;
     private:
-        json* queryYahoo(std::string ticker);
-        DataFound* parseData(json* data);
+        json* queryYahoo(const std::string& ticker) const;
+        DataFound* parseData(json* data) const;
     };
 }

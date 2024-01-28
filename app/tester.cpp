@@ -29,7 +29,6 @@ namespace trader{
         return true;
     }
 
-
     bool tester::testParseDataWithValidData(){
         DataGetter* dg = new DataGetter();
         // If response body == ... 
@@ -120,16 +119,16 @@ namespace trader{
     }
 
     // other functions to test
-    // responseValid(json* data)
     // getData(std::string ticker)
+
 }
 
 int main(){
     std::cout << "Testing\n";
     trader::tester t;
-    //bool ret = t.testQueryYahoo();
-    //bool ret2 = t.testParseDataWithValidData();
-    //bool ret3 = t.testParseDataWithMissingResults();
+    bool ret = t.testQueryYahoo();
+    bool ret2 = t.testParseDataWithValidData();
+    bool ret3 = t.testParseDataWithMissingResults();
     bool ret4 = t.testParseDataWithMissingQuote();
     std::cout << "Testing complete!\n";
     return 0;

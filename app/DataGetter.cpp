@@ -10,13 +10,13 @@ namespace trader{
     DataGetter::~DataGetter(){
     }
 
-    double DataGetter::spoofGetPrice(){
+    double DataGetter::spoofGetPrice() const {
         std::cout << "Getting data...\n";
         double price{10.0};
         return price;
     }
 
-    json* DataGetter::queryYahoo(std::string ticker){
+    json* DataGetter::queryYahoo(const std::string& ticker) const {
         //std::string api_url = "https://query1.finance.yahoo.com/v7/finance/options/";
         std::string api_url = "https://query1.finance.yahoo.com/v6/finance/options/";
         std::string full_url = api_url + ticker; 
@@ -30,7 +30,7 @@ namespace trader{
         return response;
     }
 
-    DataFound* DataGetter::parseData(json* data){
+    DataFound* DataGetter::parseData(json* data) const {
         DataFound* data_found_ = new DataFound();
         if((*data)["status"] != 200){
             data_found_->datafoundSetError(true);
@@ -57,7 +57,7 @@ namespace trader{
         return data_found_;
     }
 
-    DataFound* DataGetter::getData(std::string ticker){
+    DataFound* DataGetter::getData(const std::string& ticker) const {
         json* data_ = DataGetter::queryYahoo(ticker);        
         DataFound* data_found_ = DataGetter::parseData(data_);
         return data_found_;

@@ -1,11 +1,13 @@
 #pragma once
 #include "DataGetter.cpp"
+#include "DataFound.cpp"
 
 namespace trader{
     class tester{
     public:
-        bool testGetPrice();
         bool testQueryYahoo();
         bool testSpoofGetPrice();
+        bool testParseDataWithValidData();
+        bool testParseDataWithMissingKey();
     };
 }

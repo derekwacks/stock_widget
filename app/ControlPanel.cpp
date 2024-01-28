@@ -42,7 +42,8 @@ namespace trader{
 
         getButton_ = new wxButton{this, ID_ButtonGet, "Get Data"};
         Bind(wxEVT_BUTTON, &ControlPanel::onGetDataButtonClick, this, ID_ButtonGet);
-        vBox->Add(getButton_, 0, 0);
+        //vBox->Add(getButton_, 0, 0);
+        vBox->Add(getButton_, 0, wxCENTER);
 
         SetSizer(vBox);
     }
@@ -52,21 +53,25 @@ namespace trader{
 
     void ControlPanel::onGetDataButtonClick(wxCommandEvent& event){
         std::string ticker_symbol = getTicker();
-        std::cout << "Ticker entered:" << ticker_symbol << std::endl;
-
         DataFound* datafound = wxGetApp().getter().getData(ticker_symbol);
+        bool err = datafound->datafoundGetError();
         double price = datafound->price();
         std::string name = datafound->name();
         std::string exchange = datafound->exchange();
-
         price_->SetLabel(std::to_string(price));
         name_->SetLabel(name);
         exchange_->SetLabel(exchange);
-
+        if(err){
+            showErrOnStatBar();
+        }
     }
 
     std::string ControlPanel::getTicker(){
         return symbol_->GetValue().ToStdString();
+    }
+
+    void ControlPanel::showErrOnStatBar(){
+        wxMessageBox("Invalid ticker symbol");
     }
 
 }

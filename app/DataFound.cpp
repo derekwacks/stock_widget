@@ -1,7 +1,7 @@
 #include "DataFound.hpp"
 
 namespace trader{
-    DataFound::DataFound(double p, std::string n, std::string ex) : price_{p}, name_{n}, exchange_{ex}{
+    DataFound::DataFound(double p, std::string n, std::string ex, bool er) : price_{p}, name_{n}, exchange_{ex}, error_{er}{
     }
 
     DataFound::~DataFound(){
@@ -17,5 +17,13 @@ namespace trader{
 
     std::string DataFound::exchange(){
         return exchange_; 
+    }
+
+    bool DataFound::datafoundGetError(){
+        return error_; 
+    }
+
+    void DataFound::datafoundSetError(bool err){
+        error_ = err; 
     }
 }

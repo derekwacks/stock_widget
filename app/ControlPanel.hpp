@@ -13,6 +13,7 @@ namespace trader{
     private:
         void onGetDataButtonClick(wxCommandEvent& event);
         std::string getTicker();
+        void showErrOnStatBar(); 
         wxButton* getButton_; 
         wxStaticBox* paramsBox_; 
         wxTextCtrl* symbol_; 

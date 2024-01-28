@@ -15,7 +15,6 @@ namespace trader{
         double spoofGetPrice();
     private:
         json* queryYahoo(std::string ticker);
-        bool responseValid(json* data);
         DataFound* parseData(json* data);
     };
 }

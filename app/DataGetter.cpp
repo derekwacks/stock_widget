@@ -31,21 +31,29 @@ namespace trader{
     }
 
     DataFound* DataGetter::parseData(json* data){
-        json result = (*data)["body"]["optionChain"]["result"];
         DataFound* data_found_ = new DataFound();
-        if((*data)["status"] == 200){
-            std::cout << "RESULT: " << result << std::endl; 
-            if(!result[0].is_null()){
-                json quote = result[0]["quote"]; 
-                double price{quote["regularMarketPrice"]};
-                std::string name{quote["shortName"]};
-                std::string exchange{quote["exchange"]};
-                data_found_ = new DataFound(price, name, exchange);
-            }
-            std::cout << "ok\n";
-        } else {
+        if((*data)["status"] != 200){
             data_found_->datafoundSetError(true);
+            return data_found_;
         }
+        json result = (*data)["body"]["optionChain"]["result"];
+        if(result[0].is_null()){
+            data_found_->datafoundSetError(true);
+            return data_found_;
+        }
+        if(!result[0].contains("quote")){
+            data_found_->datafoundSetError(true);
+            return data_found_;
+        }
+        json quote = result[0]["quote"]; 
+        if (!quote.contains("regularMarketPrice") || !quote.contains("shortName") || !quote.contains("fullExchangeName")){
+            data_found_->datafoundSetError(true);
+            return data_found_;
+        }
+        double price{(*data)["body"]["optionChain"]["result"][0]["quote"]["regularMarketPrice"]};
+        std::string name{(*data)["body"]["optionChain"]["result"][0]["quote"]["shortName"]};
+        std::string exchange{(*data)["body"]["optionChain"]["result"][0]["quote"]["fullExchangeName"]};
+        data_found_ = new DataFound(price, name, exchange);
         return data_found_;
     }
 

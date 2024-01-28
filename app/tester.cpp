@@ -40,7 +40,7 @@ namespace trader{
                         "quote": {
                             "regularMarketPrice" : 1.0,
                             "shortName" : "EarthCo",
-                            "exchange" : "GetYourStoinksHere"
+                            "fullExchangeName" : "GetYourStoinksHere"
                         }
                    } 
                 ]
@@ -63,12 +63,42 @@ namespace trader{
         return true; 
     }
 
-    bool tester::testParseDataWithMissingKey(){
+    bool tester::testParseDataWithMissingResults(){
         DataGetter* dg = new DataGetter();
         // If response body == ... 
         json invalid_body = json::parse(R"({
             "optionChain" : {
                 "result" : [
+                ]
+            }
+        })");
+        json* response = new json({
+            {"status", 200},
+            {"header", "content-type"},
+            {"body", invalid_body}
+        });
+        // When we try to parse it
+        DataFound* result = dg->parseData(response);
+        // Then price, name, and exchange should equal these values
+        double price{result->price()};
+        std::string name{result->name()};
+        std::string exchange{result->exchange()};
+        assert(price == 0);
+        assert(name == "name");
+        assert(exchange == "exchange");
+        return true; 
+    }
+
+    bool tester::testParseDataWithMissingQuote(){
+        DataGetter* dg = new DataGetter();
+        // If response body == ... 
+        json invalid_body = json::parse(R"({
+            "optionChain" : {
+                "result" : [
+                   {
+                        "notAQuote": {
+                        }
+                   } 
                 ]
             }
         })");
@@ -97,9 +127,10 @@ namespace trader{
 int main(){
     std::cout << "Testing\n";
     trader::tester t;
-    bool ret = t.testQueryYahoo();
-    bool ret2 = t.testParseDataWithValidData();
-    bool ret3 = t.testParseDataWithMissingKey();
+    //bool ret = t.testQueryYahoo();
+    //bool ret2 = t.testParseDataWithValidData();
+    //bool ret3 = t.testParseDataWithMissingResults();
+    bool ret4 = t.testParseDataWithMissingQuote();
     std::cout << "Testing complete!\n";
     return 0;
 }

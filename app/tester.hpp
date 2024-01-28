@@ -8,6 +8,7 @@ namespace trader{
         bool testQueryYahoo();
         bool testSpoofGetPrice();
         bool testParseDataWithValidData();
-        bool testParseDataWithMissingKey();
+        bool testParseDataWithMissingResults();
+        bool testParseDataWithMissingQuote();
     };
 }

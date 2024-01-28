@@ -7,3 +7,6 @@ A simple stock widget that queries Yahoo Finance with an inputted ticker symbol.
 - [Niels Lohmann's JSON for Modern C++](https://github.com/nlohmann/json)
 - [CPR](https://github.com/libcpr/cpr), a libcurl wrapper
 
+### Executables
+- tester - runs testing functions
+- trader - launches main app

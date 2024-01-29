@@ -12,7 +12,6 @@ namespace trader{
         DataGetter();
         ~DataGetter();
         DataFound* getData(const std::string& ticker) const;
-        double spoofGetPrice() const;
     private:
         json* queryYahoo(const std::string& ticker) const;
         DataFound* parseData(json* data) const;

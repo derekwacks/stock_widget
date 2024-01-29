@@ -10,12 +10,6 @@ namespace trader{
     DataGetter::~DataGetter(){
     }
 
-    double DataGetter::spoofGetPrice() const {
-        std::cout << "Getting data...\n";
-        double price{10.0};
-        return price;
-    }
-
     json* DataGetter::queryYahoo(const std::string& ticker) const {
         //std::string api_url = "https://query1.finance.yahoo.com/v7/finance/options/";
         std::string api_url = "https://query1.finance.yahoo.com/v6/finance/options/";
@@ -25,8 +19,14 @@ namespace trader{
         json* response = new json({
             {"status", r.status_code},
             {"header", r.header["content-type"]},
-            {"body", json::parse(r.text)}
         });
+
+        if(r.status_code != 0){
+            (*response)["body"] = json::parse(r.text); 
+        } else {
+            (*response)["body"] = "null"; 
+        }
+
         return response;
     }
 

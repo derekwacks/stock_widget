@@ -10,30 +10,33 @@ namespace trader{
 
     ControlPanel::ControlPanel(wxWindow* parent) : wxPanel{parent}{
         wxBoxSizer* vBox{new wxBoxSizer{wxVERTICAL}};
-        
         paramsBox_ = new wxStaticBox{this, wxID_ANY, ""};
         wxStaticBoxSizer* staticBoxSizer{new wxStaticBoxSizer{paramsBox_, wxVERTICAL}};
         constexpr int rows{5};
         constexpr int cols{2};
         constexpr int vGap{4};
         constexpr int hGap{8};
-        wxFlexGridSizer* fgs = new wxFlexGridSizer{rows, cols, vGap, hGap};
 
+        wxFlexGridSizer* fgs = new wxFlexGridSizer{rows, cols, vGap, hGap};
+        
         wxStaticText* symbol_label{new wxStaticText{paramsBox_, wxID_ANY, "Symbol:"}};
         symbol_ = new wxTextCtrl{paramsBox_, wxID_ANY, "KC=F", wxDefaultPosition, wxDefaultSize, wxTE_RIGHT};
-        wxStaticText* price_label{new wxStaticText{paramsBox_, wxID_ANY, "Price:"}};
-        price_ = new wxStaticText{paramsBox_, wxID_ANY, "0.0"};
-        wxStaticText* name_label{new wxStaticText{paramsBox_, wxID_ANY, "Name:"}};
-        name_ = new wxStaticText{paramsBox_, wxID_ANY, "name"};
-        wxStaticText* exchange_label{new wxStaticText{paramsBox_, wxID_ANY, "Exchange:"}};
-        exchange_ = new wxStaticText{paramsBox_, wxID_ANY, "exchange"};
-
         fgs->Add(symbol_label);
         fgs->Add(symbol_, 1, wxEXPAND);
+
+        wxStaticText* price_label{new wxStaticText{paramsBox_, wxID_ANY, "Price:"}};
+        price_ = new wxStaticText{paramsBox_, wxID_ANY, "0.0"};
         fgs->Add(price_label);
         fgs->Add(price_, 2, wxEXPAND);
+        
+        
+        wxStaticText* name_label{new wxStaticText{paramsBox_, wxID_ANY, "Name:"}};
+        name_ = new wxStaticText{paramsBox_, wxID_ANY, "name"};
         fgs->Add(name_label);
         fgs->Add(name_, 3, wxEXPAND);
+
+        wxStaticText* exchange_label{new wxStaticText{paramsBox_, wxID_ANY, "Exchange:"}};
+        exchange_ = new wxStaticText{paramsBox_, wxID_ANY, "exchange"};
         fgs->Add(exchange_label);
         fgs->Add(exchange_, 4, wxEXPAND);
 
@@ -42,7 +45,6 @@ namespace trader{
 
         getButton_ = new wxButton{this, ID_ButtonGet, "Get Data"};
         Bind(wxEVT_BUTTON, &ControlPanel::onGetDataButtonClick, this, ID_ButtonGet);
-        //vBox->Add(getButton_, 0, 0);
         vBox->Add(getButton_, 0, wxCENTER);
 
         SetSizer(vBox);

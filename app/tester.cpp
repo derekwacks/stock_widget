@@ -119,6 +119,7 @@ namespace trader{
 
     // other functions to test
     // getData(std::string ticker)
+    
 
 }
 

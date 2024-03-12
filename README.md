@@ -15,4 +15,3 @@ A simple stock widget that queries Yahoo Finance with an inputted ticker symbol.
 This software architecture is based on designs by Daniel Moreno at Brown University (in which App.cpp contains an instance of the AppWindow class, which in turn contains an instance of the ControlPanel class).
 
 ### To-do
-- Add error checking to Yahoo's API version (sometimes V7 in DataGetter::queryYahoo() returns error:{"code":"Unauthorized","description":"Invalid Crumb"} and V6 must be used)

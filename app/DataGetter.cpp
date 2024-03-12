@@ -10,9 +10,12 @@ namespace trader{
     DataGetter::~DataGetter(){
     }
 
-    json* DataGetter::queryYahoo(const std::string& ticker) const {
-        //std::string api_url = "https://query1.finance.yahoo.com/v7/finance/options/";
+    json* DataGetter::queryYahoo(const std::string& ticker, bool second_attempt) const {
         std::string api_url = "https://query1.finance.yahoo.com/v6/finance/options/";
+        if(second_attempt){
+            std::cout << "Reseting URL" << std::endl;
+            api_url = "https://query1.finance.yahoo.com/v7/finance/options/";
+        }
         std::string full_url = api_url + ticker; 
         cpr::Response r = cpr::Get(cpr::Url{full_url},
         cpr::Authentication{"user", "pass", cpr::AuthMode::BASIC});
@@ -20,13 +23,16 @@ namespace trader{
             {"status", r.status_code},
             {"header", r.header["content-type"]},
         });
-
+        if(r.status_code == 401 && second_attempt == false){
+            // Retry with other version of API
+            std::cout << "Running again" << std::endl;
+            return queryYahoo(ticker, true);
+        }
         if(r.status_code != 0){
             (*response)["body"] = json::parse(r.text); 
         } else {
             (*response)["body"] = "null"; 
         }
-
         return response;
     }
 

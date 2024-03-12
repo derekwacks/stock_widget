@@ -13,7 +13,7 @@ namespace trader{
         ~DataGetter();
         DataFound* getData(const std::string& ticker) const;
     private:
-        json* queryYahoo(const std::string& ticker) const;
+        json* queryYahoo(const std::string& ticker, bool second_attempt = false) const;
         DataFound* parseData(json* data) const;
     };
 }

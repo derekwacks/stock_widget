@@ -14,8 +14,12 @@ namespace trader{
             wxSize{600,400},
             wxDEFAULT_FRAME_STYLE | wxMINIMIZE_BOX },
             menuFile_{ new wxMenu{} },
-            menuHelp_{ new wxMenu{} },
-            controls_{ new ControlPanel{this} }{
+            menuHelp_{ new wxMenu{} }{//,
+            //controls_{ new ControlPanel{this} }{
+            //login_{ new LoginPanel{this} }{
+        
+        controls_ = new ControlPanel(this);
+        
         menuFile_->Append(wxID_EXIT, wxGetStockLabel(wxID_EXIT), "Quit");
         menuHelp_->Append(wxID_ABOUT, wxGetStockLabel(wxID_ABOUT), "Display information");
 
@@ -28,10 +32,19 @@ namespace trader{
         Bind(wxEVT_MENU, &AppWindow::onAbout, this, wxID_ABOUT);
 
         CreateStatusBar(5);
-
+        
         wxBoxSizer* hbox{new wxBoxSizer{wxHORIZONTAL}};
         hbox->Add(controls_, 1, wxEXPAND | wxALL, 5);
 
+        //wxBoxSizer* hbox{new wxBoxSizer{wxVERTICAL}};
+        //hbox->Add(login_, 1, wxEXPAND | wxALL, 5);
+        /*
+        wxBoxSizer* hbox{new wxBoxSizer{wxVERTICAL}};
+        wxFlexGridSizer* ctrl_login = new wxFlexGridSizer(2,1,10,10);
+        ctrl_login->Add(controls_, 1, wxEXPAND | wxALL);
+        ctrl_login->Add(login_, 1, wxEXPAND | wxALL);
+        hbox->Add(ctrl_login, 0, wxEXPAND);
+        */
         Centre();
         Show();
     }

@@ -9,6 +9,8 @@ add_executable(trader
     ControlPanel.cpp
     DataFound.hpp
     DataFound.cpp
+    LoginPanel.hpp
+    LoginPanel.cpp
 )
 
 add_executable(tester

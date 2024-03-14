@@ -29,7 +29,6 @@ namespace trader{
         fgs->Add(price_label);
         fgs->Add(price_, 2, wxEXPAND);
         
-        
         wxStaticText* name_label{new wxStaticText{paramsBox_, wxID_ANY, "Name:"}};
         name_ = new wxStaticText{paramsBox_, wxID_ANY, "name"};
         fgs->Add(name_label);

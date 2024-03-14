@@ -26,29 +26,28 @@ namespace trader{
         
         // Add sizers to the main sizer
         mainSizer->Add(gridSizer, 1, wxALL | wxEXPAND, 20);
-        
         // Set the main sizer for the panel
         this->SetSizer(mainSizer);
-
         // Connect the login button to the event handler
         loginBtn->Bind(wxEVT_BUTTON, &LoginPanel::onLoginButtonClick, this);
-        
         //usernameCtrl->SetFocus();
-
     }
 
     LoginPanel::~LoginPanel(){
     }
 
-    //void LoginPanel::createAppWindow(void){
-        //
-    //}
+    void LoginPanel::createAppWindow(void){
+        wxWindow* parent_ = GetParent();
+        controls_ = new ControlPanel(parent_);
+        this->Destroy();
+        parent_->Layout();
+    }
 
     void LoginPanel::onLoginButtonClick(wxCommandEvent& event){
         wxString username = usernameCtrl->GetValue();
         wxString password = passwordCtrl->GetValue();
         if (username == "user" && password == "password"){
-            wxMessageBox("Login successful!", "Success", wxOK | wxICON_INFORMATION);
+            LoginPanel::createAppWindow();
         }
         else{
             wxMessageBox("Login failed. Please check your username and password.", "Error", wxOK | wxICON_ERROR);

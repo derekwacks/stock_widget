@@ -1,0 +1,78 @@
+#include <wx/wx.h>
+
+class MainFrame : public wxFrame
+{
+public:
+    MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
+};
+
+class MyFrame : public wxFrame
+{
+public:
+    MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
+
+private:
+    void OnLogin(wxCommandEvent& event);
+
+    wxTextCtrl* usernameCtrl;
+    wxTextCtrl* passwordCtrl;
+
+    wxDECLARE_EVENT_TABLE();
+};
+
+wxBEGIN_EVENT_TABLE(MyFrame, wxFrame)
+    EVT_BUTTON(wxID_ANY, MyFrame::OnLogin)
+wxEND_EVENT_TABLE()
+
+MyFrame::MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
+    : wxFrame(NULL, wxID_ANY, title, pos, size)
+{
+    // ... (unchanged code for the login frame)
+
+    // Connect the login button to the event handler
+    loginBtn->Bind(wxEVT_BUTTON, &MyFrame::OnLogin, this);
+}
+
+void MyFrame::OnLogin(wxCommandEvent& event)
+{
+    wxString username = usernameCtrl->GetValue();
+    wxString password = passwordCtrl->GetValue();
+
+    // Perform your login validation here (dummy validation in this example)
+    if (username == "user" && password == "password")
+    {
+        wxMessageBox("Login successful!", "Success", wxOK | wxICON_INFORMATION);
+
+        // Create and show the main application frame
+        MainFrame* mainFrame = new MainFrame("Main Application", wxDefaultPosition, wxSize(800, 600));
+        mainFrame->Show(true);
+
+        // Hide or destroy the login frame
+        Hide(); // or Destroy();
+    }
+    else
+    {
+        wxMessageBox("Login failed. Please check your username and password.", "Error", wxOK | wxICON_ERROR);
+    }
+}
+
+MainFrame::MainFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
+    : wxFrame(NULL, wxID_ANY, title, pos, size)
+{
+    // Additional code for the main application frame
+}
+
+class MyApp : public wxApp
+{
+public:
+    virtual bool OnInit();
+};
+
+bool MyApp::OnInit()
+{
+    MyFrame* frame = new MyFrame("Login Page", wxPoint(50, 50), wxSize(400, 200));
+    frame->Show(true);
+    return true;
+}
+
+wxIMPLEMENT_APP(MyApp);

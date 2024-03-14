@@ -18,7 +18,10 @@ namespace trader{
             //controls_{ new ControlPanel{this} }{
             //login_{ new LoginPanel{this} }{
         
-        controls_ = new ControlPanel(this);
+        //controls_ = new ControlPanel(this);
+        login_ = new LoginPanel(this);
+        std::cout << "login_: " << login_ << std::endl;
+
         
         menuFile_->Append(wxID_EXIT, wxGetStockLabel(wxID_EXIT), "Quit");
         menuHelp_->Append(wxID_ABOUT, wxGetStockLabel(wxID_ABOUT), "Display information");
@@ -34,7 +37,7 @@ namespace trader{
         CreateStatusBar(5);
         
         wxBoxSizer* hbox{new wxBoxSizer{wxHORIZONTAL}};
-        hbox->Add(controls_, 1, wxEXPAND | wxALL, 5);
+        hbox->Add(login_, 1, wxEXPAND | wxALL, 5);
 
         //wxBoxSizer* hbox{new wxBoxSizer{wxVERTICAL}};
         //hbox->Add(login_, 1, wxEXPAND | wxALL, 5);
@@ -47,6 +50,7 @@ namespace trader{
         */
         Centre();
         Show();
+        std::cout << "AppWindow wxFrame ptr: " << this << std::endl;
     }
 
     AppWindow::~AppWindow(){

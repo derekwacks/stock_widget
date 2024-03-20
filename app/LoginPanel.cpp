@@ -43,10 +43,18 @@ namespace trader{
         parent_->Layout();
     }
 
+    bool LoginPanel::userIsValid(wxString username, wxString password){
+        // Cognito here
+        if (username == "user" && password == "password"){
+            return true;
+        }
+        return false;
+    }
+
     void LoginPanel::onLoginButtonClick(wxCommandEvent& event){
         wxString username = usernameCtrl->GetValue();
         wxString password = passwordCtrl->GetValue();
-        if (username == "user" && password == "password"){
+        if(userIsValid(username, password)){
             LoginPanel::createAppWindow();
         }
         else{

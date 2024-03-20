@@ -1,0 +1,60 @@
+
+add_executable(trader
+    App.hpp
+    App.cpp
+    Window.hpp
+    Window.cpp
+    DataGetter.hpp
+    DataGetter.cpp
+    ControlPanel.hpp
+    ControlPanel.cpp
+    DataFound.hpp
+    DataFound.cpp
+    LoginPanel.hpp
+    LoginPanel.cpp
+)
+
+add_executable(tester
+    tester.hpp
+    tester.cpp
+)
+
+include(FetchContent)
+FetchContent_Declare(cpr GIT_REPOSITORY https://github.com/libcpr/cpr.git
+                         GIT_TAG 3b15fa82ea74739b574d705fea44959b58142eb8)
+FetchContent_MakeAvailable(cpr)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
+
+target_link_libraries(trader wx::core wx::gl cpr::cpr nlohmann_json::nlohmann_json)
+target_link_libraries(tester cpr::cpr nlohmann_json::nlohmann_json)
+
+
+# AWS CPP SDK
+fetchcontent_declare(
+  awscppsdk
+  GIT_REPOSITORY https://github.com/aws/aws-sdk-cpp/
+  GIT_PROGRESS TRUE
+  GIT_SUBMODULES crt/aws-crt-cpp aws-cpp-sdk-core aws-cpp-sdk-cognito-identity
+  GIT_TAG master
+)
+#set(awscppsdk_BUILD_DIR, "../build/_deps/awscppsdk-build")
+#set(awscppsdk_BUILD_DIR, "${CMAKE_BINARY_DIR}/_deps/awscppsdk-build")
+#set(BINARY_DIR_AWS_SDK, "${CMAKE_BINARY_DIR}/build/_deps/awscppsdk-build")
+set(BINARY_DIR_AWS_SDK "${CMAKE_BINARY_DIR}/build/_deps/awscppsdk-build" CACHE INTERNAL "")
+
+if(NOT awscppsdk_POPULATED)
+  fetchcontent_populate(awscppsdk)
+  set(BUILD_ONLY "cognito-identity")
+  set(ENABLE_TESTING OFF)
+  #add_subdirectory(${awscppsdk_SOURCE_DIR} ${awscppsdk_BUILD_DIR})
+  add_subdirectory(${awscppsdk_SOURCE_DIR} ${BINARY_DIR_AWS_SDK})
+endif()
+# # # # #
+#set(AWSSDK_DIR "${CMAKE_BINARY_DIR}/build/_deps/awscppsdk-src/cmake")
+set(AWSSDK_DIR "${awscppsdk_SOURCE_DIR}/cmake")
+set(SERVICE_COMPONENTS cognito-idp)
+find_package(AWSSDK REQUIRED COMPONENTS ${SERVICE_COMPONENTS})
+add_executable(cognito_tester Cognito_auth.cpp)
+target_link_libraries(cognito_tester ${AWSSDK_LINK_LIBRARIES})

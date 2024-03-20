@@ -14,6 +14,7 @@ namespace trader{
     private:
         void onLoginButtonClick(wxCommandEvent& event);
         void createAppWindow();
+        bool userIsValid(wxString username, wxString password);
         wxTextCtrl* usernameCtrl;
         wxTextCtrl* passwordCtrl;
         ControlPanel* controls_;

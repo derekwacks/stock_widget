@@ -119,6 +119,7 @@ std::vector<uint8_t> AuthenticationHelper::GetPasswordAuthenticationKey(const st
                                                                          const BIGNUM* B,
                                                                          const BIGNUM* salt) {
     // Your password authentication key generation logic here
+    
     return std::vector<uint8_t>();
 }
 
